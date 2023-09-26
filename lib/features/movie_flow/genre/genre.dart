@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'genre_entity.dart';
 
 @immutable
 class Genre {
@@ -9,6 +10,10 @@ class Genre {
   const Genre({required this.name, this.isSelected = false, this.id = 0});
   Genre toggleSelected() {
     return Genre(name: name, id: id, isSelected: !isSelected);
+  }
+
+  factory Genre.fromEntity(GenreEntity entity) {
+    return Genre(name: entity.name, id: entity.id, isSelected: false);
   }
 
   @override

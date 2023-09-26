@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 import 'package:movie_recommendation/features/movie_flow/genre/genre.dart';
+import 'movie_entity.dart';
 
 class Movie {
   final String title;
@@ -27,6 +28,18 @@ class Movie {
         releaseDate = '',
         backdropPath = '',
         posterPath = '';
+
+  factory Movie.fromEntity(MovieEntity entity, List<Genre> genres) {
+    return Movie(
+      title: entity.title,
+      overview: entity.overview,
+      voteAverage: entity.voteAverage,
+      genres: genres
+          .where((genre) => entity.genreIds.contains(genre.id))
+          .toList(growable: false),
+      releaseDate: entity.releaseDate,
+    );
+  }
 
   String get genresCommaSeperated {
     return genres.map((e) => e.name).toList().join(',');

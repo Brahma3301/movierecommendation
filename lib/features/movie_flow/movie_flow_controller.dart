@@ -19,10 +19,10 @@ class MovieFlowController extends StateNotifier<MovieFlowState> {
       for (final oldGenre in state.genres)
         if (oldGenre == genre) oldGenre.toggleSelected() else oldGenre
     ]);
+  }
 
-    void updateRating(int updatedRating) {
-      state = state.copyWith(rating: updatedRating);
-    }
+  void updateRating(int updatedRating) {
+    state = state.copyWith(rating: updatedRating);
   }
 
   void updateYearsBack(int updatedYearsBack) {
