@@ -38,6 +38,9 @@ class Movie {
           .where((genre) => entity.genreIds.contains(genre.id))
           .toList(growable: false),
       releaseDate: entity.releaseDate,
+      backdropPath:
+          'https://image.tmdb.org/t/p/original/${entity.backdropPath}',
+      posterPath: 'https://image.tmdb.org/t/p/original/${entity.posterPath}',
     );
   }
 
