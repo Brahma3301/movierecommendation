@@ -9,7 +9,7 @@ void main() {
 }
 
 final dioProvider = Provider<Dio>((ref) {
-  return Dio(BaseOptions(baseUrl: 'https://api/themoviedb.org/3/'));
+  return Dio(BaseOptions(baseUrl: 'https://api.themoviedb.org/3/'));
 });
 
 class MyApp extends StatelessWidget {

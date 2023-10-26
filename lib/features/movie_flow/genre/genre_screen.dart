@@ -27,25 +27,33 @@ class GenreScreen extends ConsumerWidget {
           textAlign: TextAlign.center,
         ),
         Expanded(
-          child: ListView.separated(
-              padding: const EdgeInsets.symmetric(vertical: kListItemSpacing),
-              itemBuilder: (context, index) {
-                final genre =
-                    ref.watch(movieFlowControllerProvider).genres[index];
-                return ListCard(
-                  genre: genre,
-                  onTap: () => ref
-                      .read(movieFlowControllerProvider.notifier)
-                      .toggleSelected(genre),
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: kListItemSpacing,
-                );
-              },
-              itemCount: ref.watch(movieFlowControllerProvider).genres.length),
-        ),
+            child: ref.watch(movieFlowControllerProvider).genres.when(
+                data: (genres) {
+                  return ListView.separated(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: kListItemSpacing),
+                      itemBuilder: (context, index) {
+                        final genre = genres[index];
+                        return ListCard(
+                          genre: genre,
+                          onTap: () => ref
+                              .read(movieFlowControllerProvider.notifier)
+                              .toggleSelected(genre),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          height: kListItemSpacing,
+                        );
+                      },
+                      itemCount: genres.length);
+                },
+                error: (e, s) {
+                  return const Text('something went wrong');
+                },
+                loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    ))),
         PrimaryButton(
           onPressed: ref.read(movieFlowControllerProvider.notifier).nextPage,
           text: 'Continue',
